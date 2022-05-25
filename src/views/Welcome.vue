@@ -1,5 +1,5 @@
 <template>
-  <Welcome-To id="welcome-to"/>
+  <WelcomeTo id="welcome-to"/>
 </template>
 
 <script>

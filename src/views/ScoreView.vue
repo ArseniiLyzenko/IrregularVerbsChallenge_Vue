@@ -2,39 +2,52 @@
   <div id="container">
     <p id="score_p" class='display-2'>{{ score }}</p>
     <v-form ref='form' class='d-flex'>
-      <v-text-field id='user-name'
-                    label="Your Name"
-                    v-model="userName.value"
-                    :readonly='isScoreAndNameSubmitted'
-                    :rules='[userName.rules.required]'
-                    required
-                    outlined
+      <v-text-field
+        id='user-name'
+        label="Your Name"
+        v-model="userName.value"
+        :readonly='isScoreAndNameSubmitted'
+        :rules='[userName.rules.required]'
+        required
+        outlined
       />
-      <v-btn outlined
-             type='submit'
-             @click.native.prevent="submitNameAndScore"
-             class='ml-3'
-             height='56'
-             >Submit</v-btn>
+      <v-btn
+        outlined
+        type='submit'
+        @click.native.prevent="submitNameAndScore"
+        class='ml-3'
+        height='56'>
+        Submit
+      </v-btn>
     </v-form>
 
-    <v-data-table :headers='headers'
-                  :items='scoreRecords'
-                  loading='!isScoreRecordsFetched'
-                  loading-text="Loading score table... Please wait"
-                  hide-default-footer
-                  disable-pagination
-                  disable-sort
-                  :mobile-breakpoint='300'
-                  height='220'
-                  item-key='index'
-                  class='records-table'
-                  >
-    </v-data-table>
+    <v-data-table
+      :headers='headers'
+      :items='scoreRecords'
+      loading='!isScoreRecordsFetched'
+      loading-text="Loading score table..."
+      hide-default-footer
+      disable-pagination
+      disable-sort
+      :mobile-breakpoint='300'
+      height='220'
+      item-key='index'
+      class='records-table'
+    />
 
     <div class='mt-3'>
-      <v-btn outlined to='/game-field' class='ma-1'>Play again</v-btn>
-      <v-btn outlined to='/learning-mode' class='ma-1'>Learn verbs</v-btn>
+      <v-btn
+          outlined
+          to='/game-field'
+          class='ma-1'>
+        Play again
+      </v-btn>
+      <v-btn
+          outlined
+          to='/learning-mode'
+          class='ma-1'>
+        Learn verbs
+      </v-btn>
     </div>
   </div>
 </template>

@@ -1,21 +1,22 @@
 <template>
   <v-app>
     <div id="app">
-      <transition name='fade'
-                  mode='out-in'>
-        <router-view v-if="isVerbsFetched"
-                     :verbs="verbs"
-                     :score.sync="score"
-                     :database='database'
-                     />
+      <transition
+       v-if="isVerbsFetched" name='fade'
+        mode='out-in'>
+        <router-view
+          :verbs="verbs"
+          :score.sync="score"
+          :database="database"
+        />
       </transition>
 
-      <div id="fetch-error-container" v-if="isVerbsFetchError">
+      <template v-if="isVerbsFetchError">
         <p id="sad-smile">(-_-)</p>
         <h2 id="fetch-error_h2">
           Error: could not fetch irregular verbs, come back later...
         </h2>
-      </div>
+      </template>
     </div>
   </v-app>
 </template>
@@ -31,16 +32,17 @@
     data: function () {
       return {
         verbs: null,
-        isVerbsFetched: false,
+        isVerbsFetched: true,
         isVerbsFetchError: false,
-        score: 0
+        score: 0,
+        database: null,
       }
     },
 
     created() {
       this.fetchVerbs()
         .then(() => this.isVerbsFetched = true)
-        .catch(e => {this.isVerbsFetchError = true; console.error(e);});
+        .catch(() => this.isVerbsFetchError = true);
 
       let firebaseConfig = {
         apiKey: "AIzaSyCnUTZ5FUBGGPib0otMMsHOYRuRd6HYTLw",
@@ -55,42 +57,6 @@
       if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
       this.database = firebase.database();
-
-      let userInfo = {
-        timeOpened: new Date().toString(),
-        timezone: (new Date()).getTimezoneOffset()/60,
-
-        pageon: window.location.pathname,
-        referrer: document.referrer,
-        previousSites: history.length,
-
-        browserName: navigator.appName,
-        browserEngine: navigator.product,
-        browserVersion1a: navigator.appVersion,
-        browserVersion1b: navigator.userAgent,
-        browserLanguage: navigator.language,
-        browserOnline: navigator.onLine,
-        browserPlatform: navigator.platform,
-        javaEnabled: navigator.javaEnabled(),
-        dataCookiesEnabled: navigator.cookieEnabled,
-        dataCookies1: document.cookie,
-        dataCookies2: decodeURIComponent(document.cookie.split(";")),
-
-        sizeScreenW: screen.width,
-        sizeScreenH: screen.height,
-        sizeDocW: document.width || null,
-        sizeDocH: document.height || null,
-        sizeInW: innerWidth,
-        sizeInH: innerHeight,
-        sizeAvailW: screen.availWidth,
-        sizeAvailH: screen.availHeight,
-        scrColorDepth: screen.colorDepth,
-        scrPixelDepth: screen.pixelDepth
-      };
-
-      if (userInfo.referrer === '' && userInfo.timezone === 4) return;
-
-      //this.database.ref('usersInfo').push(userInfo);
     },
 
     methods: {
@@ -111,7 +77,7 @@
     overflow: hidden;
   }
 
-  #fetch-error-container {
+  #app {
     text-align: center;
   }
 
