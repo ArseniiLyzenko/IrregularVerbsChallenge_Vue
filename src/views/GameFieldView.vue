@@ -1,45 +1,49 @@
 <template>
   <div id="container">
-    <p class='overline'>{{ score }}/100</p>
-    <!--"pickedVerb[4]" is the russian form of the verb-->
-    <Typer-Element propText="Okay, here we go!"
-                   :textForTyping='pickedVerb[4]'
-                   />
+    <p class='overline'>{{ score }}</p>
+    <TyperElement
+      propText=""
+      :textForTyping='pickedVerb[4]'
+    />
     <form id="verbs_form" autocomplete="off">
       <div id='verb-inputs_container'>
         <v-text-field
-            id="input-1"
-            class='d-inline-block mx-3'
-            :label='inputs[1].label'
-            v-model='inputs[1].value'
-            :readonly='isDefeated'
-            :error-messages='inputs[1].hint'
-            :success='isDefeated && !inputs[1].isIncorrect'
-            @input.native='inputs[1].value = inputs[1].value.toLowerCase().trim()'
+          id="input-1"
+          class='d-inline-block mx-3'
+          :label='inputs[1].label'
+          v-model='inputs[1].value'
+          :readonly='isDefeated'
+          :error-messages='inputs[1].hint'
+          :success='isDefeated && !inputs[1].isIncorrect'
+          @input.native='inputs[1].value = inputs[1].value.toLowerCase().trim()'
         />
         <v-text-field
-            id="input-2"
-            class='d-inline-block mx-3'
-            :label='inputs[2].label'
-            v-model="inputs[2].value"
-            :readonly="isDefeated"
-            :error-messages='inputs[2].hint'
-            :success='isDefeated && !inputs[2].isIncorrect'
-            @input.native='inputs[2].value = inputs[2].value.toLowerCase().trim()'
+          id="input-2"
+          class='d-inline-block mx-3'
+          :label='inputs[2].label'
+          v-model="inputs[2].value"
+          :readonly="isDefeated"
+          :error-messages='inputs[2].hint'
+          :success='isDefeated && !inputs[2].isIncorrect'
+          @input.native='inputs[2].value = inputs[2].value.toLowerCase().trim()'
         />
         <v-text-field
-            id="input-3"
-            class='d-inline-block mx-3'
-            :label='inputs[3].label'
-            v-model="inputs[3].value"
-            :readonly="isDefeated"
-            :error-messages='inputs[3].hint'
-            :success='isDefeated && !inputs[3].isIncorrect'
-            @input.native='inputs[3].value = inputs[3].value.toLowerCase().trim()'
+          id="input-3"
+          class='d-inline-block mx-3'
+          :label='inputs[3].label'
+          v-model="inputs[3].value"
+          :readonly="isDefeated"
+          :error-messages='inputs[3].hint'
+          :success='isDefeated && !inputs[3].isIncorrect'
+          @input.native='inputs[3].value = inputs[3].value.toLowerCase().trim()'
         />
       </div>
-      <v-btn v-if="!isDefeated" type="submit" outlined class='mt-3'
-             @click.native.prevent="tryToSubmitVerbs">
+      <v-btn
+        v-if="!isDefeated"
+        type="submit"
+        outlined
+        class='mt-3'
+        @click.native.prevent="tryToSubmitVerbs">
         Submit
       </v-btn>
       <template v-if="isDefeated">

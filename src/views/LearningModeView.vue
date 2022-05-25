@@ -1,60 +1,64 @@
 <template>
   <div id="container">
-    <p class='overline'>{{ verbsCounter }}/100</p>
-    <!--"pickedVerb[4]" is the russian form of the verb-->
-    <Typer-Element propText="Okay, here we go!"
-                   :textForTyping="pickedVerb[4]"
-                   @TypingIsFinished='showHints'
-                   />
+    <p class='overline'>{{ verbsCounter }}</p>
+    <TyperElement
+      propText=""
+      :textForTyping="pickedVerb[4]"
+      @TypingIsFinished='showHints'
+    />
 
     <v-form id="verbs_form" autocomplete="off">
       <div id='verb-inputs_container'>
         <v-text-field
-            id="input-1"
-            class='d-inline-block mx-3'
-            :label='inputs[1].label'
-            v-model='inputs[1].value'
-            :hint='inputs[1].hint'
-            persistent-hint
-            :error-messages='inputs[1].errorMsg'
-            :success-messages='inputs[1].successMsg'
-            @input.native='dynamicCheck(inputs[1], pickedVerb[1])'
+          id="input-1"
+          class='d-inline-block mx-3'
+          :label='inputs[1].label'
+          v-model='inputs[1].value'
+          :hint='inputs[1].hint'
+          persistent-hint
+          :error-messages='inputs[1].errorMsg'
+          :success-messages='inputs[1].successMsg'
+          @input.native='dynamicCheck(inputs[1], pickedVerb[1])'
         />
         <v-text-field
-            id="input-2"
-            class='d-inline-block mx-3'
-            :label='inputs[2].label'
-            v-model="inputs[2].value"
-            :hint='inputs[2].hint'
-            persistent-hint
-            :error-messages='inputs[2].errorMsg'
-            :success-messages='inputs[2].successMsg'
-            @input.native='dynamicCheck(inputs[2], pickedVerb[2])'
+          id="input-2"
+          class='d-inline-block mx-3'
+          :label='inputs[2].label'
+          v-model="inputs[2].value"
+          :hint='inputs[2].hint'
+          persistent-hint
+          :error-messages='inputs[2].errorMsg'
+          :success-messages='inputs[2].successMsg'
+          @input.native='dynamicCheck(inputs[2], pickedVerb[2])'
         />
         <v-text-field
-            id="input-3"
-            class='d-inline-block mx-3'
-            :label='inputs[3].label'
-            v-model="inputs[3].value"
-            :hint='inputs[3].hint'
-            persistent-hint
-            :error-messages='inputs[3].errorMsg'
-            :success-messages='inputs[3].successMsg'
-            @input.native='dynamicCheck(inputs[3], pickedVerb[3])'
+          id="input-3"
+          class='d-inline-block mx-3'
+          :label='inputs[3].label'
+          v-model="inputs[3].value"
+          :hint='inputs[3].hint'
+          persistent-hint
+          :error-messages='inputs[3].errorMsg'
+          :success-messages='inputs[3].successMsg'
+          @input.native='dynamicCheck(inputs[3], pickedVerb[3])'
         />
       </div>
 
       <div id="btns-container" class='mt-3'>
-        <v-btn class='mx-1'
-               @click.native='$router.push("/")'
-               outlined>
+        <v-btn
+          class='mx-1'
+          @click.native='$router.push("/")'
+          outlined
+        >
           Stop
         </v-btn>
-        <v-btn class='mx-1'
-               type="submit"
-               @click.native.prevent="tryToSubmitVerbs"
-               outlined
-        >Submit
+        <v-btn
+          class='mx-1'
+          type="submit"
+          @click.native.prevent="tryToSubmitVerbs"
+          outlined
+        >
+          Submit
         </v-btn>
       </div>
     </v-form>
@@ -136,7 +140,7 @@
       },
 
       checkEachVerb() {
-        for (let i = 1; i < 4; i ++) {
+        for (let i = 1; i < 4; i++) {
           if (this.pickedVerb[i] !== this.inputs[i].value.toLowerCase().trim()) {
             this.inputs[i].errorMsg = this.pickedVerb[i];
             this.isDefeated = true;
@@ -174,22 +178,22 @@
         input.value = input.value.toLowerCase().trim();
 
         const inputLength = input.value.length;
-        const pickedLenght = pickedVerb.length;
+        const pickedLength = pickedVerb.length;
 
         input.errorMsg = '';
 
-        if (inputLength < pickedLenght && input.value !== pickedVerb.slice(0,
+        if (inputLength < pickedLength && input.value !== pickedVerb.slice(0,
           inputLength)) {
           input.errorMsg = pickedVerb;
           return;
         }
 
-        if (inputLength === pickedLenght && input.value !== pickedVerb) {
+        if (inputLength === pickedLength && input.value !== pickedVerb) {
           input.errorMsg = pickedVerb;
           return;
         }
 
-        if (inputLength > pickedLenght) {
+        if (inputLength > pickedLength) {
           input.errorMsg = pickedVerb;
           return;
         }
